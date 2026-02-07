@@ -33,12 +33,12 @@
   flex-shrink: 0;
 }
 
-.profile-image {
+.author-profile-image {
   width: 100%;
   height: 100%;
   border-radius: 50%;
   object-fit: cover;
-  border: 4px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
 }
 
 .avatar-placeholder {
