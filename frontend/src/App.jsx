@@ -9,7 +9,7 @@ import { AppContext } from './context/Appcontext.jsx';
 import Login from './components/Login/Login.jsx';
 import Comment from './pages/Comment/Comment.jsx';
 import Profile from './pages/Profile/Profile.jsx';
-import OtherProfile from './pages/OtherProfile/OtherProfile.jsx';
+import OtherProfile from './pages/otherProfile/otherProfile.jsx';
 
 const App = () => {
   const { openLogin, setOpenLogin, user, setUser } = useContext(AppContext);
