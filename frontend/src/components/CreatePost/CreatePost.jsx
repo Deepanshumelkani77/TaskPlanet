@@ -15,7 +15,7 @@ const CreatePost = ({ onPostCreate }) => {
   const uploadToCloudinary = async (file) => {
     const formData = new FormData()
     formData.append('file', file)
-    formData.append('upload_preset', import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET)
+    formData.append('upload_preset', 'TaskPlanet')
 
     try {
       const response = await fetch(import.meta.env.VITE_CLOUDINARY_URL, {
@@ -84,7 +84,7 @@ const CreatePost = ({ onPostCreate }) => {
     }
 
     try {
-      const response = await fetch('http://localhost:5000/post/create', {
+      const response = await fetch(import.meta.env.VITE_BACKEND_URL + '/post/create', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

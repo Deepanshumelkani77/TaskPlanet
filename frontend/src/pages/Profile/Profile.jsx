@@ -106,7 +106,7 @@ const Profile = () => {
 
   const fetchProfile = async () => {
     try {
-      const response = await fetch('http://localhost:5000/user/profile', {
+      const response = await fetch(import.meta.env.VITE_BACKEND_URL + '/user/profile', {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
@@ -130,7 +130,7 @@ const Profile = () => {
 
   const fetchUserPosts = async () => {
     try {
-      const response = await fetch('http://localhost:5000/user/posts', {
+      const response = await fetch(import.meta.env.VITE_BACKEND_URL + '/user/posts', {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
@@ -158,7 +158,7 @@ const Profile = () => {
         return
       }
 
-      const response = await fetch(`http://localhost:5000/post/${postId}/like`, {
+      const response = await fetch(import.meta.env.VITE_BACKEND_URL + `/post/${postId}/like`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -212,7 +212,7 @@ const Profile = () => {
     e.preventDefault()
     
     try {
-      const response = await fetch('http://localhost:5000/user/profile', {
+      const response = await fetch(import.meta.env.VITE_BACKEND_URL + '/user/profile', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -246,7 +246,7 @@ const Profile = () => {
     }
 
     try {
-      const response = await fetch(`http://localhost:5000/user/post/${postId}`, {
+      const response = await fetch(import.meta.env.VITE_BACKEND_URL + `/user/post/${postId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`

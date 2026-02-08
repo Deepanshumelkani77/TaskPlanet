@@ -24,7 +24,7 @@ const Login = () => {
     e.preventDefault()
     
     const endpoint = isLogin ? 'login' : 'signup'
-    const url = `http://localhost:5000/user/${endpoint}`
+    const url = `${import.meta.env.VITE_BACKEND_URL}/user/${endpoint}`
     
     try {
       const response = await fetch(url, {

@@ -29,7 +29,7 @@ const OtherProfile = () => {
         headers['Authorization'] = `Bearer ${token}`
       }
       
-      const response = await fetch(`http://localhost:5000/user/user/${userId}`, {
+      const response = await fetch(import.meta.env.VITE_BACKEND_URL + `/user/user/${userId}`, {
         headers
       })
       
@@ -68,7 +68,7 @@ const OtherProfile = () => {
     }
 
     try {
-      const response = await fetch(`http://localhost:5000/post/${postId}/like`, {
+      const response = await fetch(import.meta.env.VITE_BACKEND_URL + `/post/${postId}/like`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

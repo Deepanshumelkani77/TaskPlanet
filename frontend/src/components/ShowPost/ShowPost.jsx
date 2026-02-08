@@ -45,7 +45,7 @@ const ShowPost = ({ posts: externalPosts }) => {
         headers['Authorization'] = `Bearer ${token}`
       }
       
-      const response = await fetch('http://localhost:5000/post/all', {
+      const response = await fetch(import.meta.env.VITE_BACKEND_URL + '/post/all', {
         headers
       })
       const data = await response.json()
@@ -71,7 +71,7 @@ const ShowPost = ({ posts: externalPosts }) => {
         return
       }
 
-      const response = await fetch(`http://localhost:5000/post/${postId}/like`, {
+      const response = await fetch(import.meta.env.VITE_BACKEND_URL + `/post/${postId}/like`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

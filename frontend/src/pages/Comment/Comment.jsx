@@ -32,7 +32,7 @@ const Comment = () => {
       }
       
       // Fetch post details
-      const postResponse = await fetch(`http://localhost:5000/post/${postId}`, {
+      const postResponse = await fetch(import.meta.env.VITE_BACKEND_URL + `/post/${postId}`, {
         headers
       })
       const postData = await postResponse.json()
@@ -45,7 +45,7 @@ const Comment = () => {
       }
 
       // Fetch comments
-      const commentsResponse = await fetch(`http://localhost:5000/comment/${postId}`, {
+      const commentsResponse = await fetch(import.meta.env.VITE_BACKEND_URL + `/comment/${postId}`, {
         headers
       })
       const commentsData = await commentsResponse.json()
@@ -82,7 +82,7 @@ const Comment = () => {
     try {
       const user = JSON.parse(localStorage.getItem('user'))
 
-      const response = await fetch(`http://localhost:5000/comment/${postId}`, {
+      const response = await fetch(import.meta.env.VITE_BACKEND_URL + `/comment/${postId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -125,7 +125,7 @@ const Comment = () => {
     }
 
     try {
-      const response = await fetch(`http://localhost:5000/comment/${commentId}`, {
+      const response = await fetch(import.meta.env.VITE_BACKEND_URL + `/comment/${commentId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -151,7 +151,7 @@ const Comment = () => {
 
   const handleLike = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/post/${postId}/like`, {
+      const response = await fetch(import.meta.env.VITE_BACKEND_URL + `/post/${postId}/like`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
