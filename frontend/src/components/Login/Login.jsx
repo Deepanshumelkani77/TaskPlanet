@@ -6,6 +6,7 @@ import { AppContext } from '../../context/Appcontext'
 const Login = () => {
   const { setOpenLogin, setUser } = useContext(AppContext)
   const [isLogin, setIsLogin] = useState(true)
+  const [isLoading, setIsLoading] = useState(false)
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -22,6 +23,8 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    
+    setIsLoading(true)
     
     const endpoint = isLogin ? 'login' : 'signup'
     const url = `${import.meta.env.VITE_BACKEND_URL}/user/${endpoint}`
@@ -55,6 +58,8 @@ const Login = () => {
     } catch (error) {
       console.error('Error:', error)
       toast.error('Network error. Please try again.')
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -137,8 +142,19 @@ const Login = () => {
               </div>
             )}
 
-            <button type="submit" className="login-btn">
-              {isLogin ? 'Login' : 'Sign Up'}
+            <button 
+              type="submit" 
+              className="login-btn"
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <span className="loading-spinner">
+                  <span className="spinner"></span>
+                  {isLogin ? 'Logging in...' : 'Signing up...'}
+                </span>
+              ) : (
+                isLogin ? 'Login' : 'Sign Up'
+              )}
             </button>
           </form>
 
