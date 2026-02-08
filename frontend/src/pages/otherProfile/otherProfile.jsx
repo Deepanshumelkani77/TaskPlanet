@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import './OtherProfile.css'
+import './otherProfile.css'
 
 const OtherProfile = () => {
   const { userId } = useParams()
