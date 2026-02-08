@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 // JWT Secret Key (in production, use environment variable)
-const JWT_SECRET = 'your-secret-key-here';
+const JWT_SECRET = 'Dev_Melkani_Secret_Key';
 
 // Register User
 const signup = async (req, res) => {
