@@ -15,12 +15,10 @@ const ShowPost = ({ posts: externalPosts }) => {
     fetchPosts()
   }, []) // Initial fetch
 
-  // Refetch posts when user logs in/out
+  // Refetch posts when user logs in/out or when user data is loaded
   useEffect(() => {
-    if (user) {
-      fetchPosts()
-    }
-  }, [user]) // Fetch when user changes
+    fetchPosts()
+  }, [user]) // Fetch when user changes (including initial load)
 
   // Update posts when new post is created
   useEffect(() => {
@@ -33,14 +31,6 @@ const ShowPost = ({ posts: externalPosts }) => {
       })
     }
   }, [externalPosts])
-
-  // Refetch posts when token changes (for page refresh)
-  useEffect(() => {
-    const token = localStorage.getItem('token')
-    if (token) {
-      fetchPosts()
-    }
-  }, [user]) // Use user state instead of direct localStorage access
 
   const fetchPosts = async () => {
     try {
@@ -70,6 +60,14 @@ const ShowPost = ({ posts: externalPosts }) => {
       setLoading(false)
     }
   }
+
+  // Refetch posts when user authentication changes
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+    if (token) {
+      fetchPosts()
+    }
+  }, [user?.id]) // Trigger when user ID changes
 
   const handleLike = async (postId) => {
     try {

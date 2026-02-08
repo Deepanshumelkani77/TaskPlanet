@@ -1,17 +1,22 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import { AppContext } from '../../context/Appcontext'
 import './otherProfile.css'
 
 const OtherProfile = () => {
   const { userId } = useParams()
   const navigate = useNavigate()
+  const { user: currentUser } = useContext(AppContext) // Get current user from context
   const [user, setUser] = useState(null)
   const [posts, setPosts] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
-  const [token, setToken] = useState(localStorage.getItem('token'))
-  const [currentUser, setCurrentUser] = useState(null)
+
+  // Refetch user profile when authentication changes or when user data is loaded
+  useEffect(() => {
+    fetchUserProfile()
+  }, [currentUser]) // Fetch when current user changes (including initial load)
 
   useEffect(() => {
     fetchUserProfile()
@@ -20,13 +25,13 @@ const OtherProfile = () => {
   const fetchUserProfile = async () => {
     try {
       // Prepare headers with optional authorization
-      const token = localStorage.getItem('token')
+      const authToken = localStorage.getItem('token')
       const headers = {
         'Content-Type': 'application/json'
       }
       
-      if (token) {
-        headers['Authorization'] = `Bearer ${token}`
+      if (authToken) {
+        headers['Authorization'] = `Bearer ${authToken}`
       }
       
       const response = await fetch(import.meta.env.VITE_BACKEND_URL + `/user/user/${userId}`, {
@@ -61,7 +66,8 @@ const OtherProfile = () => {
   }
 
   const handleLike = async (postId) => {
-    if (!token) {
+    const authToken = localStorage.getItem('token')
+    if (!authToken) {
       toast.error('Please login to like posts')
       navigate('/login')
       return
@@ -72,13 +78,13 @@ const OtherProfile = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
+          'Authorization': `Bearer ${authToken}`
         }
       })
 
       if (response.ok) {
         const data = await response.json()
-        // Update the post in local state
+        // Update post in local state
         setPosts(posts.map(post => 
           post._id === postId 
             ? { ...post, liked: data.liked, likes: data.likes }

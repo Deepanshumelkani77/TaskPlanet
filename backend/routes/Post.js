@@ -9,7 +9,7 @@ const optionalAuth = (req, res, next) => {
   if (token) {
     try {
       const jwt = require('jsonwebtoken');
-      const decoded = jwt.verify(token, 'your-secret-key-here');
+      const decoded = jwt.verify(token, 'Dev_Melkani_Secret_Key');
       req.user = decoded;
     } catch (error) {
       // Token is invalid, but we continue without user

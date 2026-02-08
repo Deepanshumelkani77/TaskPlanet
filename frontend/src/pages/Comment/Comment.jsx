@@ -11,7 +11,7 @@ const Comment = () => {
   const [post, setPost] = useState(null)
   const [comments, setComments] = useState([])
   const [newComment, setNewComment] = useState('')
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [token, setToken] = useState(localStorage.getItem('token'))
 
@@ -19,12 +19,10 @@ const Comment = () => {
     fetchPostAndComments()
   }, [postId])
 
-  // Refetch post when user changes (for page refresh)
+  // Refetch post when user changes or when user data is loaded (for page refresh)
   useEffect(() => {
-    if (user) {
-      fetchPostAndComments()
-    }
-  }, [user])
+    fetchPostAndComments()
+  }, [user]) // Fetch when user changes (including initial load)
 
   const fetchPostAndComments = async () => {
     try {
@@ -72,6 +70,15 @@ const Comment = () => {
       setLoading(false)
     }
   }
+
+  useEffect(() => {
+    fetchPostAndComments()
+  }, [postId])
+
+  // Refetch post when user changes (for page refresh)
+  useEffect(() => {
+    fetchPostAndComments()
+  }, [user])
 
   const handleCommentSubmit = async (e) => {
     e.preventDefault()
