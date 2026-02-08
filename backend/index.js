@@ -20,20 +20,14 @@ const mongoose = require("mongoose");
       process.exit(1);
     }
   };
-//db connectin model
-connectDB();
-
-
 
 // CORS configuration
 app.use(cors({
-  origin: ['http://localhost:5000', 'http://localhost:5173',"https://task-planet.vercel.app/","https://taskplanet-bik1.onrender.com"],
+  origin: ['https://task-planet.vercel.app', 'https://taskplanet-bik1.onrender.com', 'http://localhost:3000', 'http://localhost:5173'],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
-
-
 
 // Handle both JSON and form-data
 app.use(express.json({ limit: '10mb' }));
