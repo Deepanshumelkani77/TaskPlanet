@@ -19,6 +19,13 @@ const Comment = () => {
     fetchPostAndComments()
   }, [postId])
 
+  // Refetch post when user changes (for page refresh)
+  useEffect(() => {
+    if (user) {
+      fetchPostAndComments()
+    }
+  }, [user])
+
   const fetchPostAndComments = async () => {
     try {
       // Prepare headers with optional authorization
@@ -315,7 +322,7 @@ const Comment = () => {
               <div className="action-buttons">
                 <button 
                   className={`like-btn ${post.liked ? 'liked' : ''}`}
-                  onClick={handleLike}
+                  onClick={() => handleLike(postId)}
                 >
                   <span className="like-icon">
                     {post.liked ? '❤️' : '🤍'}

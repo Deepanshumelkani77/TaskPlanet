@@ -97,7 +97,7 @@ const likePost = async (req, res) => {
     }
 
     // Check if user already liked post
-    const alreadyLiked = post.likes.includes(userId);
+    const alreadyLiked = post.likes.some(like => like.toString() === userId);
     
     if (alreadyLiked) {
       // Unlike

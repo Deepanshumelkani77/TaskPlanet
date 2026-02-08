@@ -25,7 +25,7 @@ const ShowPost = ({ posts: externalPosts }) => {
   // Update posts when new post is created
   useEffect(() => {
     if (externalPosts && externalPosts.length > 0) {
-      // Add new posts to the beginning of existing posts
+      // Add new posts to beginning of existing posts
       setPosts(prevPosts => {
         const existingPostIds = new Set(prevPosts.map(post => post._id))
         const newPosts = externalPosts.filter(post => !existingPostIds.has(post._id))
@@ -33,6 +33,14 @@ const ShowPost = ({ posts: externalPosts }) => {
       })
     }
   }, [externalPosts])
+
+  // Refetch posts when token changes (for page refresh)
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+    if (token) {
+      fetchPosts()
+    }
+  }, [user]) // Use user state instead of direct localStorage access
 
   const fetchPosts = async () => {
     try {
