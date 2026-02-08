@@ -11,7 +11,7 @@ const Comment = () => {
   const [post, setPost] = useState(null)
   const [comments, setComments] = useState([])
   const [newComment, setNewComment] = useState('')
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
   const [token, setToken] = useState(localStorage.getItem('token'))
 
@@ -25,6 +25,7 @@ const Comment = () => {
   }, [user]) // Fetch when user changes (including initial load)
 
   const fetchPostAndComments = async () => {
+    setLoading(true)
     try {
       // Prepare headers with optional authorization
       const token = localStorage.getItem('token')
